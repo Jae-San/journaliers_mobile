@@ -30,20 +30,21 @@ function Welcome() {
           </p>
         </div>
 
-        <ul className="mt-9 space-y-3">
+        <div className="mt-9 space-y-3">
           {highlights.map(({ icon: Icon, text }, i) => (
-            <li
+            <Link
               key={text}
+              to="/login"
               style={{ animationDelay: `${i * 70}ms` }}
-              className="feed-card stagger flex items-center gap-3 rounded-2xl px-4 py-3.5"
+              className="press feed-card stagger flex items-center gap-3 rounded-2xl px-4 py-3.5"
             >
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary">
                 <Icon className="h-5 w-5" strokeWidth={1.75} />
               </span>
               <span className="text-sm font-medium text-foreground">{text}</span>
-            </li>
+            </Link>
           ))}
-        </ul>
+        </div>
       </div>
 
       <div className="space-y-3">

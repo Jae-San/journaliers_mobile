@@ -16,6 +16,7 @@ import {
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { CI_CITIES } from "@/lib/cities";
+import { SocialAuthButtons } from "@/components/SocialAuthButtons";
 
 export const Route = createFileRoute("/register")({
   component: Register,
@@ -67,6 +68,16 @@ function Register() {
   const back = () => {
     if (step > 0) setStep((s) => s - 1);
     else navigate({ to: "/" });
+  };
+
+  const socialSignup = (provider: "Google" | "Facebook") => {
+    const demo =
+      provider === "Google"
+        ? { firstName: "Aïcha", lastName: "Koné", phone: "07 01 02 03 04" }
+        : { firstName: "Yves", lastName: "Kouamé", phone: "05 06 07 08 09" };
+    setData((d) => ({ ...d, ...demo, password: "social-oauth" }));
+    toast.success(`Compte ${provider} connecté`);
+    setStep(1);
   };
 
   return (
@@ -123,7 +134,9 @@ function Register() {
       </div>
 
       <div key={step} className="screen-enter flex-1 overflow-y-auto px-5 pb-6">
-        {step === 0 && <StepIdentity data={data} set={set} />}
+        {step === 0 && (
+          <StepIdentity data={data} set={set} onSocialSignup={socialSignup} />
+        )}
         {step === 1 && <StepAddress data={data} set={set} />}
         {step === 2 && <StepDocument image={data.idImage} set={set} />}
         {step === 3 && <StepSummary data={data} />}
@@ -227,9 +240,11 @@ function Select({
 function StepIdentity({
   data,
   set,
+  onSocialSignup,
 }: {
   data: FormData;
   set: (k: keyof FormData, v: string) => void;
+  onSocialSignup: (provider: "Google" | "Facebook") => void;
 }) {
   return (
     <div className="space-y-4">
@@ -262,6 +277,13 @@ function StepIdentity({
         onChange={(v) => set("password", v)}
         placeholder="••••••••"
       />
+
+      <div className="pt-2">
+        <SocialAuthButtons
+          onGoogle={() => onSocialSignup("Google")}
+          onFacebook={() => onSocialSignup("Facebook")}
+        />
+      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Phone, Lock, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { Logo } from "@/components/Logo";
+import { SocialAuthButtons } from "@/components/SocialAuthButtons";
 
 export const Route = createFileRoute("/login")({
   component: Login,
@@ -20,6 +21,11 @@ function Login() {
       toast.success("Connexion réussie");
       navigate({ to: "/home" });
     }, 700);
+  };
+
+  const socialLogin = (provider: "Google" | "Facebook") => {
+    toast.success(`Connecté avec ${provider}`);
+    navigate({ to: "/home" });
   };
 
   return (
@@ -93,6 +99,13 @@ function Login() {
             {loading ? "Connexion…" : "Se connecter"}
           </button>
         </form>
+
+        <div className="mt-6">
+          <SocialAuthButtons
+            onGoogle={() => socialLogin("Google")}
+            onFacebook={() => socialLogin("Facebook")}
+          />
+        </div>
       </div>
 
       <p className="text-center text-sm text-muted-foreground">
