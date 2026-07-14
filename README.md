@@ -1,0 +1,1 @@
+# journalia-mobile-app
