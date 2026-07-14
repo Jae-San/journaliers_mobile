@@ -17,11 +17,14 @@ import { Route as TabsRouteImport } from './routes/_tabs'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TabsProfileRouteImport } from './routes/_tabs.profile'
 import { Route as TabsPaymentsRouteImport } from './routes/_tabs.payments'
+import { Route as TabsNotificationsRouteImport } from './routes/_tabs.notifications'
 import { Route as TabsMissionsRouteImport } from './routes/_tabs.missions'
 import { Route as TabsHomeRouteImport } from './routes/_tabs.home'
 import { Route as TabsPaymentsIndexRouteImport } from './routes/_tabs.payments.index'
+import { Route as TabsNotificationsIndexRouteImport } from './routes/_tabs.notifications.index'
 import { Route as TabsMissionsIndexRouteImport } from './routes/_tabs.missions.index'
 import { Route as TabsPaymentsIdRouteImport } from './routes/_tabs.payments.$id'
+import { Route as TabsNotificationsIdRouteImport } from './routes/_tabs.notifications.$id'
 import { Route as TabsMissionsIdRouteImport } from './routes/_tabs.missions.$id'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -63,6 +66,11 @@ const TabsPaymentsRoute = TabsPaymentsRouteImport.update({
   path: '/payments',
   getParentRoute: () => TabsRoute,
 } as any)
+const TabsNotificationsRoute = TabsNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => TabsRoute,
+} as any)
 const TabsMissionsRoute = TabsMissionsRouteImport.update({
   id: '/missions',
   path: '/missions',
@@ -78,6 +86,11 @@ const TabsPaymentsIndexRoute = TabsPaymentsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => TabsPaymentsRoute,
 } as any)
+const TabsNotificationsIndexRoute = TabsNotificationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TabsNotificationsRoute,
+} as any)
 const TabsMissionsIndexRoute = TabsMissionsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -87,6 +100,11 @@ const TabsPaymentsIdRoute = TabsPaymentsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => TabsPaymentsRoute,
+} as any)
+const TabsNotificationsIdRoute = TabsNotificationsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => TabsNotificationsRoute,
 } as any)
 const TabsMissionsIdRoute = TabsMissionsIdRouteImport.update({
   id: '/$id',
@@ -102,11 +120,14 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/home': typeof TabsHomeRoute
   '/missions': typeof TabsMissionsRouteWithChildren
+  '/notifications': typeof TabsNotificationsRouteWithChildren
   '/payments': typeof TabsPaymentsRouteWithChildren
   '/profile': typeof TabsProfileRoute
   '/missions/$id': typeof TabsMissionsIdRoute
+  '/notifications/$id': typeof TabsNotificationsIdRoute
   '/payments/$id': typeof TabsPaymentsIdRoute
   '/missions/': typeof TabsMissionsIndexRoute
+  '/notifications/': typeof TabsNotificationsIndexRoute
   '/payments/': typeof TabsPaymentsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -118,8 +139,10 @@ export interface FileRoutesByTo {
   '/home': typeof TabsHomeRoute
   '/profile': typeof TabsProfileRoute
   '/missions/$id': typeof TabsMissionsIdRoute
+  '/notifications/$id': typeof TabsNotificationsIdRoute
   '/payments/$id': typeof TabsPaymentsIdRoute
   '/missions': typeof TabsMissionsIndexRoute
+  '/notifications': typeof TabsNotificationsIndexRoute
   '/payments': typeof TabsPaymentsIndexRoute
 }
 export interface FileRoutesById {
@@ -132,11 +155,14 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_tabs/home': typeof TabsHomeRoute
   '/_tabs/missions': typeof TabsMissionsRouteWithChildren
+  '/_tabs/notifications': typeof TabsNotificationsRouteWithChildren
   '/_tabs/payments': typeof TabsPaymentsRouteWithChildren
   '/_tabs/profile': typeof TabsProfileRoute
   '/_tabs/missions/$id': typeof TabsMissionsIdRoute
+  '/_tabs/notifications/$id': typeof TabsNotificationsIdRoute
   '/_tabs/payments/$id': typeof TabsPaymentsIdRoute
   '/_tabs/missions/': typeof TabsMissionsIndexRoute
+  '/_tabs/notifications/': typeof TabsNotificationsIndexRoute
   '/_tabs/payments/': typeof TabsPaymentsIndexRoute
 }
 export interface FileRouteTypes {
@@ -149,11 +175,14 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/home'
     | '/missions'
+    | '/notifications'
     | '/payments'
     | '/profile'
     | '/missions/$id'
+    | '/notifications/$id'
     | '/payments/$id'
     | '/missions/'
+    | '/notifications/'
     | '/payments/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -165,8 +194,10 @@ export interface FileRouteTypes {
     | '/home'
     | '/profile'
     | '/missions/$id'
+    | '/notifications/$id'
     | '/payments/$id'
     | '/missions'
+    | '/notifications'
     | '/payments'
   id:
     | '__root__'
@@ -178,11 +209,14 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/_tabs/home'
     | '/_tabs/missions'
+    | '/_tabs/notifications'
     | '/_tabs/payments'
     | '/_tabs/profile'
     | '/_tabs/missions/$id'
+    | '/_tabs/notifications/$id'
     | '/_tabs/payments/$id'
     | '/_tabs/missions/'
+    | '/_tabs/notifications/'
     | '/_tabs/payments/'
   fileRoutesById: FileRoutesById
 }
@@ -253,6 +287,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TabsPaymentsRouteImport
       parentRoute: typeof TabsRoute
     }
+    '/_tabs/notifications': {
+      id: '/_tabs/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof TabsNotificationsRouteImport
+      parentRoute: typeof TabsRoute
+    }
     '/_tabs/missions': {
       id: '/_tabs/missions'
       path: '/missions'
@@ -274,6 +315,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TabsPaymentsIndexRouteImport
       parentRoute: typeof TabsPaymentsRoute
     }
+    '/_tabs/notifications/': {
+      id: '/_tabs/notifications/'
+      path: '/'
+      fullPath: '/notifications/'
+      preLoaderRoute: typeof TabsNotificationsIndexRouteImport
+      parentRoute: typeof TabsNotificationsRoute
+    }
     '/_tabs/missions/': {
       id: '/_tabs/missions/'
       path: '/'
@@ -287,6 +335,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/payments/$id'
       preLoaderRoute: typeof TabsPaymentsIdRouteImport
       parentRoute: typeof TabsPaymentsRoute
+    }
+    '/_tabs/notifications/$id': {
+      id: '/_tabs/notifications/$id'
+      path: '/$id'
+      fullPath: '/notifications/$id'
+      preLoaderRoute: typeof TabsNotificationsIdRouteImport
+      parentRoute: typeof TabsNotificationsRoute
     }
     '/_tabs/missions/$id': {
       id: '/_tabs/missions/$id'
@@ -312,6 +367,19 @@ const TabsMissionsRouteWithChildren = TabsMissionsRoute._addFileChildren(
   TabsMissionsRouteChildren,
 )
 
+interface TabsNotificationsRouteChildren {
+  TabsNotificationsIdRoute: typeof TabsNotificationsIdRoute
+  TabsNotificationsIndexRoute: typeof TabsNotificationsIndexRoute
+}
+
+const TabsNotificationsRouteChildren: TabsNotificationsRouteChildren = {
+  TabsNotificationsIdRoute: TabsNotificationsIdRoute,
+  TabsNotificationsIndexRoute: TabsNotificationsIndexRoute,
+}
+
+const TabsNotificationsRouteWithChildren =
+  TabsNotificationsRoute._addFileChildren(TabsNotificationsRouteChildren)
+
 interface TabsPaymentsRouteChildren {
   TabsPaymentsIdRoute: typeof TabsPaymentsIdRoute
   TabsPaymentsIndexRoute: typeof TabsPaymentsIndexRoute
@@ -329,6 +397,7 @@ const TabsPaymentsRouteWithChildren = TabsPaymentsRoute._addFileChildren(
 interface TabsRouteChildren {
   TabsHomeRoute: typeof TabsHomeRoute
   TabsMissionsRoute: typeof TabsMissionsRouteWithChildren
+  TabsNotificationsRoute: typeof TabsNotificationsRouteWithChildren
   TabsPaymentsRoute: typeof TabsPaymentsRouteWithChildren
   TabsProfileRoute: typeof TabsProfileRoute
 }
@@ -336,6 +405,7 @@ interface TabsRouteChildren {
 const TabsRouteChildren: TabsRouteChildren = {
   TabsHomeRoute: TabsHomeRoute,
   TabsMissionsRoute: TabsMissionsRouteWithChildren,
+  TabsNotificationsRoute: TabsNotificationsRouteWithChildren,
   TabsPaymentsRoute: TabsPaymentsRouteWithChildren,
   TabsProfileRoute: TabsProfileRoute,
 }

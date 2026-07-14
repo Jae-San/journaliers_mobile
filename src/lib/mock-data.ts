@@ -22,6 +22,11 @@ export interface Attendance {
   amount: number;
 }
 
+export interface Colleague {
+  name: string;
+  role: string;
+}
+
 export interface Mission {
   id: string;
   siteName: string;
@@ -33,6 +38,34 @@ export interface Mission {
   role: string;
   supervisor: string;
   attendance: Attendance[];
+  colleagues: Colleague[];
+}
+
+export type InvitationStatus = "pending" | "accepted" | "declined";
+
+export interface MissionInvitation {
+  id: string;
+  siteName: string;
+  location: string;
+  from: string;
+  to: string;
+  dailyRate: number;
+  role: string;
+  supervisor: string;
+  colleagues: Colleague[];
+  status: InvitationStatus;
+}
+
+export type NotificationType = "mission_invitation" | "payment" | "info";
+
+export interface AppNotification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  body: string;
+  date: string;
+  read: boolean;
+  invitationId?: string;
 }
 
 export interface Payslip {
@@ -93,6 +126,10 @@ export const missions: Mission[] = [
       { date: "2025-07-01", status: "present", amount: 12000 },
       { date: "2025-06-30", status: "present", amount: 12000 },
     ],
+    colleagues: [
+      { name: "Yao Kouassi", role: "Manœuvre" },
+      { name: "Moussa Diallo", role: "Coffreur" },
+    ],
   },
   {
     id: "m-102",
@@ -105,6 +142,11 @@ export const missions: Mission[] = [
     role: "Coffreur",
     supervisor: "Aya Koffi",
     attendance: [],
+    colleagues: [
+      { name: "Adama Ouattara", role: "Maçon" },
+      { name: "Bakary Sanogo", role: "Manœuvre" },
+      { name: "Ibrahim Traoré", role: "Ferrailleur" },
+    ],
   },
   {
     id: "m-103",
@@ -122,6 +164,54 @@ export const missions: Mission[] = [
       { date: "2025-05-26", status: "late", amount: 9000 },
       { date: "2025-05-23", status: "present", amount: 11000 },
     ],
+    colleagues: [{ name: "Fatou Diabaté", role: "Peintre" }],
+  },
+];
+
+export const missionInvitations: MissionInvitation[] = [
+  {
+    id: "inv-201",
+    siteName: "Extension Voirie — Bingerville",
+    location: "Bingerville",
+    from: "2025-08-04",
+    to: "2025-09-12",
+    dailyRate: 13500,
+    role: "Manœuvre",
+    supervisor: "Fatou Diabaté",
+    colleagues: [
+      { name: "Yao Kouassi", role: "Maçon" },
+      { name: "Moussa Diallo", role: "Coffreur" },
+      { name: "Adama Ouattara", role: "Manœuvre" },
+    ],
+    status: "pending",
+  },
+];
+
+export const notifications: AppNotification[] = [
+  {
+    id: "n-1",
+    type: "mission_invitation",
+    title: "Nouvelle mission proposée",
+    body: "Vous êtes proposé pour la mission « Extension Voirie — Bingerville ». Consultez les détails et répondez.",
+    date: "2025-07-14",
+    read: false,
+    invitationId: "inv-201",
+  },
+  {
+    id: "n-2",
+    type: "payment",
+    title: "Paiement reçu",
+    body: "Votre paiement de 11 400 FCFA pour Résidence Les Palmiers a été confirmé.",
+    date: "2025-07-07",
+    read: true,
+  },
+  {
+    id: "n-3",
+    type: "info",
+    title: "Compte validé",
+    body: "Votre compte a été vérifié et validé. Vous pouvez recevoir des missions.",
+    date: "2025-06-15",
+    read: true,
   },
 ];
 
@@ -232,6 +322,14 @@ export const currentMission = missions.find((m) => m.status === "ongoing")!;
 
 export function getMission(id: string) {
   return missions.find((m) => m.id === id);
+}
+
+export function getInvitation(id: string) {
+  return missionInvitations.find((i) => i.id === id);
+}
+
+export function getNotification(id: string) {
+  return notifications.find((n) => n.id === id);
 }
 
 export function getPayslip(id: string) {

@@ -1,9 +1,10 @@
 import { createFileRoute, useParams } from "@tanstack/react-router";
-import { MapPin, User, CalendarDays, Wallet } from "lucide-react";
-import { getMission, missionTotal } from "@/lib/mock-data";
+import { MapPin, User, CalendarDays, Wallet, Users } from "lucide-react";
+import { missionTotal } from "@/lib/mock-data";
 import { formatFCFA, formatRange, formatDate } from "@/lib/format";
 import { MissionBadge, AttendanceBadge } from "@/components/StatusBadge";
 import { PageHeader } from "@/components/PageHeader";
+import { useMission } from "@/hooks/useMissions";
 
 export const Route = createFileRoute("/_tabs/missions/$id")({
   component: MissionDetail,
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/_tabs/missions/$id")({
 
 function MissionDetail() {
   const { id } = useParams({ from: "/_tabs/missions/$id" });
-  const mission = getMission(id);
+  const mission = useMission(id);
 
   if (!mission) {
     return (
@@ -81,6 +82,39 @@ function MissionDetail() {
             {daysWorked > 1 ? "s" : ""}
           </p>
         </div>
+
+        {/* Colleagues */}
+        {mission.colleagues.length > 0 && (
+          <section className="mt-6">
+            <h3 className="mb-3 flex items-center gap-1.5 text-base font-semibold text-foreground">
+              <Users className="h-4 w-4" strokeWidth={1.75} />
+              Collègues sur cette mission
+            </h3>
+            <div className="feed-card overflow-hidden rounded-2xl">
+              {mission.colleagues.map((c, i) => (
+                <div
+                  key={c.name}
+                  className={
+                    "flex items-center gap-3 px-4 py-3" +
+                    (i > 0 ? " border-t border-border" : "")
+                  }
+                >
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-muted text-xs font-bold text-muted-foreground">
+                    {c.name
+                      .split(" ")
+                      .map((p) => p[0])
+                      .join("")
+                      .slice(0, 2)}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-foreground">{c.name}</p>
+                    <p className="text-xs text-muted-foreground">{c.role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Attendance history */}
         <section className="mt-6">

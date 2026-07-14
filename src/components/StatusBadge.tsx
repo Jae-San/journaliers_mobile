@@ -4,6 +4,7 @@ import type {
   AttendanceStatus,
   AccountStatus,
   PaymentStatus,
+  InvitationStatus,
 } from "@/lib/mock-data";
 
 type Tone = "success" | "warning" | "danger" | "primary" | "neutral";
@@ -70,6 +71,12 @@ const paymentMap: Record<PaymentStatus, { tone: Tone; label: string }> = {
   pending: { tone: "warning", label: "En attente" },
 };
 
+const invitationMap: Record<InvitationStatus, { tone: Tone; label: string }> = {
+  pending: { tone: "warning", label: "En attente de réponse" },
+  accepted: { tone: "success", label: "Acceptée" },
+  declined: { tone: "danger", label: "Refusée" },
+};
+
 export function MissionBadge({ status, className }: { status: MissionStatus; className?: string }) {
   const { tone, label } = missionMap[status];
   return <Pill tone={tone} className={className}>{label}</Pill>;
@@ -87,5 +94,10 @@ export function AccountBadge({ status, className }: { status: AccountStatus; cla
 
 export function PaymentBadge({ status, className }: { status: PaymentStatus; className?: string }) {
   const { tone, label } = paymentMap[status];
+  return <Pill tone={tone} className={className}>{label}</Pill>;
+}
+
+export function InvitationBadge({ status, className }: { status: InvitationStatus; className?: string }) {
+  const { tone, label } = invitationMap[status];
   return <Pill tone={tone} className={className}>{label}</Pill>;
 }

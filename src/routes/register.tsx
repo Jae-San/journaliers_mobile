@@ -9,8 +9,13 @@ import {
   User,
   MapPin,
   CalendarDays,
+  ChevronDown,
+  LocateFixed,
+  Loader2,
 } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { CI_CITIES } from "@/lib/cities";
 
 export const Route = createFileRoute("/register")({
   component: Register,
@@ -174,6 +179,51 @@ function Input({
   );
 }
 
+function Select({
+  label,
+  icon,
+  value,
+  onChange,
+  placeholder,
+  options,
+}: {
+  label: string;
+  icon?: React.ReactNode;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  options: readonly string[];
+}) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 block text-[13px] font-medium text-foreground">
+        {label}
+      </span>
+      <div className="flex items-center gap-3 rounded-2xl border border-input bg-card px-4 py-3.5 transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15">
+        {icon && <span className="text-muted-foreground">{icon}</span>}
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className={cn(
+            "w-full appearance-none bg-transparent text-[15px] outline-none",
+            value ? "text-foreground" : "text-muted-foreground",
+          )}
+        >
+          <option value="" disabled>
+            {placeholder}
+          </option>
+          {options.map((o) => (
+            <option key={o} value={o} className="text-foreground">
+              {o}
+            </option>
+          ))}
+        </select>
+        <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.75} />
+      </div>
+    </label>
+  );
+}
+
 function StepIdentity({
   data,
   set,
@@ -223,6 +273,49 @@ function StepAddress({
   data: FormData;
   set: (k: keyof FormData, v: string) => void;
 }) {
+  const [locating, setLocating] = useState(false);
+
+  const useMyLocation = () => {
+    if (!("geolocation" in navigator)) {
+      toast.error("Géolocalisation non disponible sur cet appareil");
+      return;
+    }
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
+          );
+          const json = await res.json();
+          const displayAddress = json?.display_name as string | undefined;
+          const detectedCity: string | undefined =
+            json?.address?.city ?? json?.address?.town ?? json?.address?.county;
+
+          set("address", displayAddress ?? `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`);
+
+          const matchedCity = CI_CITIES.find(
+            (c) => c.toLowerCase() === detectedCity?.toLowerCase(),
+          );
+          if (matchedCity) set("city", matchedCity);
+
+          toast.success("Position détectée");
+        } catch {
+          set("address", `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`);
+          toast("Position détectée (adresse non résolue)");
+        } finally {
+          setLocating(false);
+        }
+      },
+      () => {
+        toast.error("Localisation refusée ou indisponible");
+        setLocating(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000 },
+    );
+  };
+
   return (
     <div className="space-y-4">
       <SectionTitle title="Adresse" sub="Où résidez-vous ?" />
@@ -233,18 +326,35 @@ function StepAddress({
         value={data.birthDate}
         onChange={(v) => set("birthDate", v)}
       />
-      <Input
-        label="Adresse"
-        icon={<MapPin className="h-5 w-5" strokeWidth={1.75} />}
-        value={data.address}
-        onChange={(v) => set("address", v)}
-        placeholder="Rue, quartier"
-      />
-      <Input
+      <div className="space-y-2">
+        <Input
+          label="Adresse"
+          icon={<MapPin className="h-5 w-5" strokeWidth={1.75} />}
+          value={data.address}
+          onChange={(v) => set("address", v)}
+          placeholder="Rue, quartier"
+        />
+        <button
+          type="button"
+          onClick={useMyLocation}
+          disabled={locating}
+          className="press-sm flex items-center gap-1.5 text-[13px] font-semibold text-primary disabled:opacity-60"
+        >
+          {locating ? (
+            <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.75} />
+          ) : (
+            <LocateFixed className="h-4 w-4" strokeWidth={1.75} />
+          )}
+          {locating ? "Localisation en cours…" : "Utiliser ma position actuelle"}
+        </button>
+      </div>
+      <Select
         label="Ville"
+        icon={<MapPin className="h-5 w-5" strokeWidth={1.75} />}
         value={data.city}
         onChange={(v) => set("city", v)}
-        placeholder="Abidjan"
+        placeholder="Sélectionnez votre ville"
+        options={CI_CITIES}
       />
     </div>
   );

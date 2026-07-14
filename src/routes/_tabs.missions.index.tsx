@@ -1,12 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { MapPin, ChevronRight, Briefcase } from "lucide-react";
-import { missions, type MissionStatus } from "@/lib/mock-data";
+import { type MissionStatus } from "@/lib/mock-data";
 import { formatFCFA, formatRange } from "@/lib/format";
 import { MissionBadge } from "@/components/StatusBadge";
 import { PageHeader } from "@/components/PageHeader";
 import { PullToRefresh } from "@/components/PullToRefresh";
 import { useSimulatedLoad } from "@/hooks/useSimulatedLoad";
+import { useAllMissions } from "@/hooks/useMissions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -24,6 +25,7 @@ const filters: { key: MissionStatus | "all"; label: string }[] = [
 
 function Missions() {
   const loading = useSimulatedLoad();
+  const missions = useAllMissions();
   const [filter, setFilter] = useState<MissionStatus | "all">("all");
 
   const list =
