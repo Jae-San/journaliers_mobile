@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-const STORAGE_KEY = "journalia-hide-pending-balance";
+const STORAGE_KEY = "journaliers-hide-pending-balance";
 
 /** Persisted "hide balance" preference, mirroring useTheme's SSR-safe read pattern. */
 export function useHiddenBalance() {

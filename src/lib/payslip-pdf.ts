@@ -109,7 +109,7 @@ export function downloadPayslipPdf(
   doc.setFontSize(8);
   doc.setTextColor(...MUTED);
   doc.text(
-    "Document généré automatiquement par Journalia. Ce bulletin atteste du paiement effectué au",
+    "Document généré automatiquement par Journaliers. Ce bulletin atteste du paiement effectué au",
     marginX,
     footerY + 6,
   );
@@ -282,7 +282,7 @@ export function downloadPayslipsSummaryPdf(
   doc.setFontSize(8);
   doc.setTextColor(...MUTED);
   doc.text(
-    "Document généré automatiquement par Journalia. Ce récapitulatif liste l'ensemble des paiements",
+    "Document généré automatiquement par Journaliers. Ce récapitulatif liste l'ensemble des paiements",
     marginX,
     footerY + 6,
   );

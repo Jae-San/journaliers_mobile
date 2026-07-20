@@ -68,7 +68,7 @@ function NotificationDetail() {
 
   const accept = () => {
     setInvitationStatus(inv.id, "accepted");
-    toast.success("Mission acceptée — retrouvez-la dans vos missions");
+    toast.success("Mission acceptée.  Retrouvez-la dans vos missions");
   };
   const decline = () => {
     setInvitationStatus(inv.id, "declined");

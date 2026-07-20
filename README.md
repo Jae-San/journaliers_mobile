@@ -1,8 +1,8 @@
-# Journalia
+# Journaliers
 
 Application mobile pour la gestion des travailleurs journaliers (BTP, chantiers...) en Côte d'Ivoire.
 
-L'idée de départ : beaucoup d'entreprises qui emploient des journaliers n'ont aucune trace fiable de qui a travaillé, où, et si la personne a bien été payée. Journalia sert à ça — un journalier s'inscrit, se fait valider, reçoit des missions, pointe sa présence, et reçoit une vraie fiche de paie téléchargeable pour chaque jour travaillé. Ce qui donne à l'entreprise (et à l'administration, en cas de contrôle) une preuve concrète des paiements effectués.
+L'idée de départ : beaucoup d'entreprises qui emploient des journaliers n'ont aucune trace fiable de qui a travaillé, où, et si la personne a bien été payée. Journaliers sert à ça — un journalier s'inscrit, se fait valider, reçoit des missions, pointe sa présence, et reçoit une vraie fiche de paie téléchargeable pour chaque jour travaillé. Ce qui donne à l'entreprise (et à l'administration, en cas de contrôle) une preuve concrète des paiements effectués.
 
 Ce dépôt contient **uniquement l'app mobile côté journalier**. Le dashboard web pour les admins/managers (validation des comptes, création des chantiers, appel de présence...) n'existe pas encore — c'est la prochaine grosse brique à construire.
 
@@ -32,8 +32,8 @@ Le projet a été initié sur [Lovable](https://lovable.dev) — d'où le dossie
 Prérequis : Node 20+ (le projet a été testé avec Node 22).
 
 ```bash
-git clone https://github.com/arnlyse26/journalia-mobile-app.git
-cd journalia-mobile-app
+git clone https://github.com/arnlyse26/journaliers-mobile-app.git
+cd journaliers-mobile-app
 npm install
 npm run dev
 ```
@@ -55,7 +55,7 @@ Il n'y a pas de "compte de test" à créer — l'app affiche toujours le même u
 1. **Écran d'accueil (`/`)** — les 3 lignes en haut ("Suivez vos présences...") et les boutons "Créer mon compte" / "J'ai déjà un compte" mènent vers l'inscription ou la connexion.
 2. **Connexion (`/login`)** — remplis n'importe quoi dans téléphone/mot de passe, ou clique directement sur "Google" / "Facebook" (ça simule la connexion et t'envoie sur `/home`).
 3. **Inscription (`/register`)** — parcours en 4 étapes : identité (ou raccourci Google/Facebook, qui pré-remplit et saute à l'étape suivante), adresse (avec un vrai bouton "Utiliser ma position actuelle" — accepte la demande de géolocalisation du navigateur, il fait un vrai reverse-geocoding via OpenStreetMap), pièce d'identité (upload photo), récapitulatif. À la fin, direction `/pending`.
-4. **Accueil (`/home`)** — total perçu, mission en cours, dernier paiement. Le logo Journalia est en haut à gauche, la cloche de notifications et l'avatar (cliquable → profil) à droite.
+4. **Accueil (`/home`)** — total perçu, mission en cours, dernier paiement. Le logo Journaliers est en haut à gauche, la cloche de notifications et l'avatar (cliquable → profil) à droite.
 5. **Notifications (cloche en haut)** — il y a une proposition de mission en attente ("Extension Voirie — Bingerville"). Clique dessus : tu vois le détail complet (chantier, prix, chef de chantier, **collègues sur la mission**), avec deux boutons Accepter / Refuser. Si tu acceptes, la mission apparaît immédiatement dans l'onglet Missions.
 6. **Missions (`/missions`)** — liste filtrable (Toutes / En cours / À venir / Terminées), avec détail par mission (historique de présence, collègues).
 7. **Paiements (`/payments`)** — liste des fiches de paie, avec un vrai bouton téléchargement PDF sur chaque ligne. Clique sur une fiche pour voir le détail (mise en page façon vrai bulletin de paie, avec en-tête "entreprise", cotisation sociale détaillée) puis "Télécharger PDF" en bas — un vrai fichier PDF se télécharge.

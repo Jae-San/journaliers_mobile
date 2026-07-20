@@ -1,7 +1,7 @@
 import { useCallback, useLayoutEffect, useState } from "react";
 
 export type Theme = "light" | "dark";
-const STORAGE_KEY = "journalia-theme";
+const STORAGE_KEY = "journaliers-theme";
 
 function applyTheme(theme: Theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");

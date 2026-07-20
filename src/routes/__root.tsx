@@ -15,7 +15,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 const NO_FLASH_THEME_SCRIPT = `
 try {
-  var t = localStorage.getItem("journalia-theme");
+  var t = localStorage.getItem("journaliers-theme");
   if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches)) {
     document.documentElement.classList.add("dark");
   }
@@ -91,14 +91,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover",
       },
-      { title: "Journalia — Gérez vos missions en toute simplicité" },
+      { title: "Journaliers : Gérez vos missions en toute simplicité" },
       {
         name: "description",
         content:
-          "Journalia : suivez vos missions, vos jours de présence et vos paiements de travailleur journalier depuis votre mobile.",
+          "Journaliers : suivez vos missions, vos jours de présence et vos paiements de travailleur journalier depuis votre mobile.",
       },
-      { name: "author", content: "Journalia" },
-      { property: "og:title", content: "Journalia — Missions & paiements" },
+      { name: "author", content: "Journaliers" },
+      { property: "og:title", content: "Journaliers; Missions & paiements" },
       {
         property: "og:description",
         content:

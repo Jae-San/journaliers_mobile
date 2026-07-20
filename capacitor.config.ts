@@ -12,8 +12,8 @@ import type { CapacitorConfig } from "@capacitor/cli";
 const DEV_SERVER_LAN_URL = "http://192.168.1.10:8080";
 
 const config: CapacitorConfig = {
-  appId: "com.journalia.app",
-  appName: "Journalia",
+  appId: "com.journaliers.app",
+  appName: "Journaliers",
   webDir: "dist",
   server: {
     url: DEV_SERVER_LAN_URL,

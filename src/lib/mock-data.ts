@@ -133,7 +133,7 @@ export const missions: Mission[] = [
   },
   {
     id: "m-102",
-    siteName: "Pont de Jacqueville — Lot 3",
+    siteName: "Pont de Jacqueville ; Lot 3",
     location: "Jacqueville",
     from: "2025-07-21",
     to: "2025-08-30",
@@ -150,7 +150,7 @@ export const missions: Mission[] = [
   },
   {
     id: "m-103",
-    siteName: "Marché de Treichville — Réhabilitation",
+    siteName: "Marché de Treichville ; Réhabilitation",
     location: "Treichville, Abidjan",
     from: "2025-04-02",
     to: "2025-05-28",
@@ -171,7 +171,7 @@ export const missions: Mission[] = [
 export const missionInvitations: MissionInvitation[] = [
   {
     id: "inv-201",
-    siteName: "Extension Voirie — Bingerville",
+    siteName: "Extension Voirie ; Bingerville",
     location: "Bingerville",
     from: "2025-08-04",
     to: "2025-09-12",
@@ -192,7 +192,7 @@ export const notifications: AppNotification[] = [
     id: "n-1",
     type: "mission_invitation",
     title: "Nouvelle mission proposée",
-    body: "Vous êtes proposé pour la mission « Extension Voirie — Bingerville ». Consultez les détails et répondez.",
+    body: "Vous êtes proposé pour la mission « Extension Voirie ; Bingerville ». Consultez les détails et répondez.",
     date: "2025-07-14",
     read: false,
     invitationId: "inv-201",

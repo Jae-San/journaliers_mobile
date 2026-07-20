@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Journalia</string>
-    <string name="title_activity_main">Journalia</string>
-    <string name="package_name">com.journalia.app</string>
-    <string name="custom_url_scheme">com.journalia.app</string>
+    <string name="app_name">Journaliers</string>
+    <string name="title_activity_main">Journaliers</string>
+    <string name="package_name">com.journaliers.app</string>
+    <string name="custom_url_scheme">com.journaliers.app</string>
 </resources>

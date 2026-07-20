@@ -108,7 +108,7 @@ function PayslipDetail() {
           </Section>
 
           <p className="border-t border-border px-4 py-3 text-[11px] leading-relaxed text-muted-foreground">
-            Document généré automatiquement par Journalia. Ce bulletin atteste du
+            Document généré automatiquement par Journaliers. Ce bulletin atteste du
             paiement effectué au travailleur désigné ci-dessus pour la mission et
             la date indiquées, à des fins de contrôle administratif.
           </p>

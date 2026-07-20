@@ -1,4 +1,4 @@
-package com.journalia.app;
+package com.journaliers.app;
 
 import com.getcapacitor.BridgeActivity;
 

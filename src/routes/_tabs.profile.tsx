@@ -113,7 +113,7 @@ function Profile() {
         </button>
 
         <p className="mt-4 text-center text-xs text-muted-foreground">
-          Journalia · Version 1.0.0
+          Journaliers · Version 1.0.0
         </p>
       </div>
     </>
