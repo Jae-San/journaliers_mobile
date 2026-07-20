@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bell, ChevronRight, CheckCircle2, MapPin } from "lucide-react";
+import { Bell, ChevronRight, CheckCircle2, Eye, EyeOff, MapPin, Wallet } from "lucide-react";
 import {
   worker,
   currentMission,
   lastPayment,
   totalEarnings,
+  payslips,
 } from "@/lib/mock-data";
 import { formatFCFA, formatDate, formatRange } from "@/lib/format";
 import { Logo } from "@/components/Logo";
@@ -12,6 +13,7 @@ import { MissionBadge } from "@/components/StatusBadge";
 import { PullToRefresh } from "@/components/PullToRefresh";
 import { useSimulatedLoad } from "@/hooks/useSimulatedLoad";
 import { useUnreadCount } from "@/hooks/useNotifications";
+import { useHiddenBalance } from "@/hooks/useHiddenBalance";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -23,6 +25,10 @@ export const Route = createFileRoute("/_tabs/home")({
 function Home() {
   const loading = useSimulatedLoad();
   const unreadCount = useUnreadCount();
+  const { hidden, toggle: toggleHidden } = useHiddenBalance();
+
+  const pendingPayments = payslips.filter((p) => p.status === "pending");
+  const pendingTotal = pendingPayments.reduce((s, p) => s + p.netAmount, 0);
 
   const refresh = () =>
     new Promise<void>((res) =>
@@ -73,21 +79,50 @@ function Home() {
             <HomeSkeleton />
           ) : (
             <div className="mt-5 space-y-4">
-              {/* Total earnings glance */}
+              {/* Pending payments glance */}
+              {pendingPayments.length > 0 && (
+                <div className="stagger relative rounded-2xl bg-primary p-5 shadow-card">
+                  <button
+                    onClick={toggleHidden}
+                    aria-label={hidden ? "Afficher le solde" : "Masquer le solde"}
+                    className="press-sm absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full bg-white/15 text-primary-foreground"
+                  >
+                    {hidden ? (
+                      <EyeOff className="h-4 w-4" strokeWidth={1.75} />
+                    ) : (
+                      <Eye className="h-4 w-4" strokeWidth={1.75} />
+                    )}
+                  </button>
+                  <Link to="/payments" className="press block pr-10">
+                    <p className="text-sm font-medium text-primary-foreground/75">
+                      Paiement{pendingPayments.length > 1 ? "s" : ""} en attente
+                    </p>
+                    <p className="mt-1 text-3xl font-extrabold tracking-tight text-primary-foreground">
+                      {hidden ? "•••••• FCFA" : formatFCFA(pendingTotal)}
+                    </p>
+                    <p className="mt-3 flex items-center gap-1 text-sm font-semibold text-primary-foreground/90">
+                      Voir mes paiements
+                      <ChevronRight className="h-4 w-4" strokeWidth={2} />
+                    </p>
+                  </Link>
+                </div>
+              )}
+
+              {/* Total earnings */}
               <Link
                 to="/payments"
-                className="press stagger block rounded-2xl bg-primary p-5 shadow-card"
+                className="press stagger feed-card flex items-center gap-3 rounded-2xl p-4"
               >
-                <p className="text-sm font-medium text-primary-foreground/75">
-                  Total perçu
-                </p>
-                <p className="mt-1 text-3xl font-extrabold tracking-tight text-primary-foreground">
-                  {formatFCFA(totalEarnings)}
-                </p>
-                <p className="mt-3 flex items-center gap-1 text-sm font-semibold text-primary-foreground/90">
-                  Voir mes paiements
-                  <ChevronRight className="h-4 w-4" strokeWidth={2} />
-                </p>
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground">
+                  <Wallet className="h-5 w-5" strokeWidth={1.75} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium text-foreground">Total perçu</p>
+                  <p className="text-sm text-muted-foreground">
+                    {formatFCFA(totalEarnings)}
+                  </p>
+                </div>
+                <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2} />
               </Link>
 
               {/* Current mission */}

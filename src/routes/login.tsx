@@ -32,7 +32,7 @@ function Login() {
     <div className="screen-enter flex min-h-screen flex-col px-6 pb-8 pt-[calc(env(safe-area-inset-top)+3rem)]">
       <div className="flex flex-1 flex-col justify-center">
         <div className="flex justify-center">
-          <Logo size="lg" showWord={false} />
+          <Logo size="lg" />
         </div>
         <h1 className="mt-6 text-center text-2xl font-extrabold tracking-tight text-foreground">
           Bon retour

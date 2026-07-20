@@ -68,37 +68,37 @@
   --popover: #ffffff;
   --popover-foreground: #050505;
 
-  --primary: #ea580c;
+  --primary: #6260ff;
   --primary-foreground: #ffffff;
-  --primary-soft: #fef0e6;
+  --primary-soft: #e4e4ff;
 
-  --secondary: #e4e6eb;
+  --secondary: #e4e4ff;
   --secondary-foreground: #050505;
 
   --muted: #f0f2f5;
   --muted-foreground: #65676b;
 
-  --accent: #fef0e6;
-  --accent-foreground: #c2410c;
+  --accent: #e4e4ff;
+  --accent-foreground: #6260ff;
 
-  --destructive: #fa383e;
+  --destructive: #6260ff;
   --destructive-foreground: #ffffff;
 
-  --border: #e4e6eb;
-  --input: #e4e6eb;
-  --ring: #ea580c;
+  --border: #e4e4ff;
+  --input: #e4e4ff;
+  --ring: #6260ff;
 
-  --success: #31a24c;
+  --success: #6260ff;
   --success-foreground: #ffffff;
-  --success-soft: #e6f4ea;
+  --success-soft: #e4e4ff;
 
-  --warning: #f7b928;
-  --warning-foreground: #4a3200;
-  --warning-soft: #fdf2dc;
+  --warning: #6260ff;
+  --warning-foreground: #ffffff;
+  --warning-soft: #e4e4ff;
 
-  --danger: #fa383e;
+  --danger: #6260ff;
   --danger-foreground: #ffffff;
-  --danger-soft: #fde8e8;
+  --danger-soft: #e4e4ff;
 }
 
 .dark {
@@ -111,9 +111,9 @@
   --popover: #242526;
   --popover-foreground: #e4e6eb;
 
-  --primary: #f2760a;
+  --primary: #6260ff;
   --primary-foreground: #ffffff;
-  --primary-soft: rgba(242, 118, 10, 0.16);
+  --primary-soft: rgba(98, 96, 255, 0.18);
 
   --secondary: #3a3b3c;
   --secondary-foreground: #e4e6eb;
@@ -121,27 +121,27 @@
   --muted: #3a3b3c;
   --muted-foreground: #b0b3b8;
 
-  --accent: rgba(242, 118, 10, 0.16);
-  --accent-foreground: #fb923c;
+  --accent: rgba(98, 96, 255, 0.18);
+  --accent-foreground: #e4e4ff;
 
-  --destructive: #f02849;
+  --destructive: #6260ff;
   --destructive-foreground: #ffffff;
 
   --border: #3e4042;
   --input: #3a3b3c;
-  --ring: #f2760a;
+  --ring: #6260ff;
 
-  --success: #45bd62;
-  --success-foreground: #04150a;
-  --success-soft: rgba(69, 189, 98, 0.16);
+  --success: #6260ff;
+  --success-foreground: #ffffff;
+  --success-soft: rgba(98, 96, 255, 0.18);
 
-  --warning: #f7b928;
-  --warning-foreground: #2e2205;
-  --warning-soft: rgba(247, 185, 40, 0.14);
+  --warning: #6260ff;
+  --warning-foreground: #ffffff;
+  --warning-soft: rgba(98, 96, 255, 0.18);
 
-  --danger: #f02849;
+  --danger: #6260ff;
   --danger-foreground: #ffffff;
-  --danger-soft: rgba(240, 40, 73, 0.16);
+  --danger-soft: rgba(98, 96, 255, 0.18);
 
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 6px rgba(0, 0, 0, 0.24);
   --shadow-elevated: 0 8px 28px rgba(0, 0, 0, 0.45);
