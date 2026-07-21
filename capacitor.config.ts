@@ -7,7 +7,7 @@ import type { CapacitorConfig } from "@capacitor/cli";
 //
 // This project builds its production bundle for a server (SSR on Cloudflare
 // Workers via Nitro) rather than static files, so `webDir` isn't wired to a
-// real production build yet — that gets revisited once the backend exists
+// real production build yet   that gets revisited once the backend exists
 // and we decide how the shipped app will fetch its data.
 const DEV_SERVER_LAN_URL = "http://192.168.1.10:8080";
 

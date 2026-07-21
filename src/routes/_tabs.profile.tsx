@@ -12,6 +12,8 @@ import {
   FileText,
   Plus,
   X,
+  Pencil,
+  Clock,
 } from "lucide-react";
 import { worker } from "@/lib/mock-data";
 import { formatDate } from "@/lib/format";
@@ -20,6 +22,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useProfilePhoto } from "@/hooks/useProfilePhoto";
 import { useExtraDocuments } from "@/hooks/useExtraDocuments";
+import { useProfileEditRequest } from "@/hooks/useProfileEditRequest";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -34,6 +37,7 @@ function Profile() {
   const fileRef = useRef<HTMLInputElement>(null);
   const { documents, addDocument, removeDocument } = useExtraDocuments();
   const docFileRef = useRef<HTMLInputElement>(null);
+  const { request: editRequest } = useProfileEditRequest();
 
   const onPhotoFile = (file?: File) => {
     if (!file) return;
@@ -140,9 +144,35 @@ function Profile() {
               value={`${worker.address}, ${worker.city}`}
             />
           </div>
-          <p className="mt-2 px-1 text-xs text-muted-foreground">
-            Pour modifier vos informations, contactez le support technique.
-          </p>
+
+          {editRequest && (
+            <div className="feed-card mt-2 flex items-center gap-3 rounded-2xl bg-primary-soft px-4 py-3.5">
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
+                <Clock className="h-4 w-4" strokeWidth={1.75} />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium text-foreground">
+                  Modification en attente de validation
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Envoyée le {formatDate(editRequest.submittedAt.slice(0, 10))}
+                </p>
+              </div>
+            </div>
+          )}
+
+          <Link
+            to="/edit-profile"
+            className="press feed-card mt-2 flex w-full items-center gap-3 rounded-2xl p-3.5"
+          >
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground">
+              <Pencil className="h-5 w-5" strokeWidth={1.75} />
+            </span>
+            <span className="min-w-0 flex-1 text-left font-medium text-foreground">
+              Modifier mes informations
+            </span>
+            <ChevronRight className="h-5 w-5 text-muted-foreground" strokeWidth={2} />
+          </Link>
         </section>
 
         {/* Security */}

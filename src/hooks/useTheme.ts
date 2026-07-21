@@ -15,7 +15,7 @@ function readStoredTheme(): Theme {
 /**
  * Reads/writes the persisted theme. The root shell's inline script sets the
  * `dark` class pre-paint (no flash), but SSR always assumes "light" since the
- * server can't see localStorage — so state starts at "light" on every render
+ * server can't see localStorage   so state starts at "light" on every render
  * pass and only syncs to the real value in a layout effect, after hydration
  * has committed, to avoid a server/client mismatch.
  */

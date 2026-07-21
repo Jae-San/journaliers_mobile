@@ -88,9 +88,9 @@ export interface Company {
 }
 
 export const company: Company = {
-  name: "BTP Ivoire Construction",
-  address: "Zone Industrielle, Yopougon, Abidjan",
-  taxId: "CI-ABJ-2019-B-58214",
+  name: "Kaera Cosmetic",
+  address: "Zone 4C, Rue du Canal, Marcory, Abidjan",
+  taxId: "CI-ABJ-2021-B-77452",
 };
 
 export const worker: Worker = {
@@ -109,13 +109,13 @@ export const worker: Worker = {
 export const missions: Mission[] = [
   {
     id: "m-101",
-    siteName: "Résidence Les Palmiers",
+    siteName: "Boutique Kaera   Cocody",
     location: "Cocody, Abidjan",
     from: "2025-06-16",
     to: "2025-07-18",
     dailyRate: 12000,
     status: "ongoing",
-    role: "Maçon",
+    role: "Conseillère beauté",
     supervisor: "Ibrahim Traoré",
     attendance: [
       { date: "2025-07-07", status: "present", amount: 12000 },
@@ -127,36 +127,36 @@ export const missions: Mission[] = [
       { date: "2025-06-30", status: "present", amount: 12000 },
     ],
     colleagues: [
-      { name: "Yao Kouassi", role: "Manœuvre" },
-      { name: "Moussa Diallo", role: "Coffreur" },
+      { name: "Yao Kouassi", role: "Vendeur" },
+      { name: "Moussa Diallo", role: "Magasinier" },
     ],
   },
   {
     id: "m-102",
-    siteName: "Pont de Jacqueville ; Lot 3",
-    location: "Jacqueville",
+    siteName: "Salon International de la Beauté   Abidjan",
+    location: "Plateau, Abidjan",
     from: "2025-07-21",
     to: "2025-08-30",
     dailyRate: 15000,
     status: "upcoming",
-    role: "Coffreur",
+    role: "Hôtesse d'accueil",
     supervisor: "Aya Koffi",
     attendance: [],
     colleagues: [
-      { name: "Adama Ouattara", role: "Maçon" },
-      { name: "Bakary Sanogo", role: "Manœuvre" },
-      { name: "Ibrahim Traoré", role: "Ferrailleur" },
+      { name: "Adama Ouattara", role: "Démonstratrice" },
+      { name: "Bakary Sanogo", role: "Agent de sécurité" },
+      { name: "Ibrahim Traoré", role: "Maquilleur" },
     ],
   },
   {
     id: "m-103",
-    siteName: "Marché de Treichville ; Réhabilitation",
-    location: "Treichville, Abidjan",
+    siteName: "Entrepôt Kaera   Conditionnement",
+    location: "Marcory, Abidjan",
     from: "2025-04-02",
     to: "2025-05-28",
     dailyRate: 11000,
     status: "completed",
-    role: "Manœuvre",
+    role: "Agent de conditionnement",
     supervisor: "Serge Bamba",
     attendance: [
       { date: "2025-05-28", status: "present", amount: 11000 },
@@ -164,24 +164,24 @@ export const missions: Mission[] = [
       { date: "2025-05-26", status: "late", amount: 9000 },
       { date: "2025-05-23", status: "present", amount: 11000 },
     ],
-    colleagues: [{ name: "Fatou Diabaté", role: "Peintre" }],
+    colleagues: [{ name: "Fatou Diabaté", role: "Contrôleuse qualité" }],
   },
 ];
 
 export const missionInvitations: MissionInvitation[] = [
   {
     id: "inv-201",
-    siteName: "Extension Voirie ; Bingerville",
-    location: "Bingerville",
+    siteName: "Lancement produit   Cap Sud",
+    location: "Marcory, Abidjan",
     from: "2025-08-04",
     to: "2025-09-12",
     dailyRate: 13500,
-    role: "Manœuvre",
+    role: "Hôtesse d'accueil",
     supervisor: "Fatou Diabaté",
     colleagues: [
-      { name: "Yao Kouassi", role: "Maçon" },
-      { name: "Moussa Diallo", role: "Coffreur" },
-      { name: "Adama Ouattara", role: "Manœuvre" },
+      { name: "Yao Kouassi", role: "Vendeur" },
+      { name: "Moussa Diallo", role: "Magasinier" },
+      { name: "Adama Ouattara", role: "Démonstratrice" },
     ],
     status: "pending",
   },
@@ -192,7 +192,7 @@ export const notifications: AppNotification[] = [
     id: "n-1",
     type: "mission_invitation",
     title: "Nouvelle mission proposée",
-    body: "Vous êtes proposé pour la mission « Extension Voirie ; Bingerville ». Consultez les détails et répondez.",
+    body: "Vous êtes proposé pour la mission « Lancement produit   Cap Sud ». Consultez les détails et répondez.",
     date: "2025-07-14",
     read: false,
     invitationId: "inv-201",
@@ -201,7 +201,7 @@ export const notifications: AppNotification[] = [
     id: "n-2",
     type: "payment",
     title: "Paiement reçu",
-    body: "Votre paiement de 11 400 FCFA pour Résidence Les Palmiers a été confirmé.",
+    body: "Votre paiement de 11 400 FCFA pour Boutique Kaera   Cocody a été confirmé.",
     date: "2025-07-07",
     read: true,
   },
@@ -219,7 +219,7 @@ export const payslips: Payslip[] = [
   {
     id: "p-9001",
     date: "2025-07-07",
-    siteName: "Résidence Les Palmiers",
+    siteName: "Boutique Kaera   Cocody",
     missionId: "m-101",
     grossAmount: 12000,
     deductions: 600,
@@ -231,7 +231,7 @@ export const payslips: Payslip[] = [
   {
     id: "p-9002",
     date: "2025-07-05",
-    siteName: "Résidence Les Palmiers",
+    siteName: "Boutique Kaera   Cocody",
     missionId: "m-101",
     grossAmount: 12000,
     deductions: 600,
@@ -243,7 +243,7 @@ export const payslips: Payslip[] = [
   {
     id: "p-9003",
     date: "2025-07-04",
-    siteName: "Résidence Les Palmiers",
+    siteName: "Boutique Kaera   Cocody",
     missionId: "m-101",
     grossAmount: 10000,
     deductions: 500,
@@ -255,7 +255,7 @@ export const payslips: Payslip[] = [
   {
     id: "p-9004",
     date: "2025-07-01",
-    siteName: "Résidence Les Palmiers",
+    siteName: "Boutique Kaera   Cocody",
     missionId: "m-101",
     grossAmount: 12000,
     deductions: 600,
@@ -267,7 +267,7 @@ export const payslips: Payslip[] = [
   {
     id: "p-9005",
     date: "2025-06-30",
-    siteName: "Résidence Les Palmiers",
+    siteName: "Boutique Kaera   Cocody",
     missionId: "m-101",
     grossAmount: 12000,
     deductions: 600,
@@ -279,7 +279,7 @@ export const payslips: Payslip[] = [
   {
     id: "p-8005",
     date: "2025-05-28",
-    siteName: "Marché de Treichville",
+    siteName: "Entrepôt Kaera   Conditionnement",
     missionId: "m-103",
     grossAmount: 11000,
     deductions: 550,
@@ -291,7 +291,7 @@ export const payslips: Payslip[] = [
   {
     id: "p-8004",
     date: "2025-05-27",
-    siteName: "Marché de Treichville",
+    siteName: "Entrepôt Kaera   Conditionnement",
     missionId: "m-103",
     grossAmount: 11000,
     deductions: 550,
@@ -303,7 +303,7 @@ export const payslips: Payslip[] = [
   {
     id: "p-8003",
     date: "2025-05-26",
-    siteName: "Marché de Treichville",
+    siteName: "Entrepôt Kaera   Conditionnement",
     missionId: "m-103",
     grossAmount: 9000,
     deductions: 450,
