@@ -1,5 +1,5 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Clock } from "lucide-react";
+import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
+import { ChevronLeft, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/pending")({
   component: Pending,
@@ -7,8 +7,18 @@ export const Route = createFileRoute("/pending")({
 
 function Pending() {
   const navigate = useNavigate();
+  const router = useRouter();
   return (
-    <div className="screen-enter flex min-h-screen flex-col items-center justify-center px-8 text-center">
+    <div className="screen-enter flex min-h-dvh flex-col items-center px-8 pt-[calc(env(safe-area-inset-top)+0.75rem)] text-center">
+      <button
+        onClick={() => router.history.back()}
+        aria-label="Retour"
+        className="press-sm -ml-1.5 self-start grid h-9 w-9 place-items-center rounded-full text-foreground hover:bg-muted"
+      >
+        <ChevronLeft className="h-5 w-5" strokeWidth={1.75} />
+      </button>
+
+      <div className="flex flex-1 flex-col items-center justify-center">
       {/* Illustration */}
       <div className="pop-in mb-8">
         <div className="grid h-28 w-28 place-items-center rounded-full bg-warning-soft">
@@ -39,6 +49,7 @@ function Pending() {
       >
         Continuer vers l'accueil
       </button>
+      </div>
     </div>
   );
 }

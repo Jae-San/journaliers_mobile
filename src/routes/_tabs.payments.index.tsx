@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
-import { Download, ChevronRight, Wallet, CalendarRange, FileText } from "lucide-react";
+import { Download, ChevronRight, Wallet, CalendarRange, FileText, Eye, EyeOff } from "lucide-react";
 import { payslips, worker, company, getMission } from "@/lib/mock-data";
 import { formatFCFA, formatDate, formatDateShort } from "@/lib/format";
 import { downloadPayslipPdf, downloadPayslipsSummaryPdf } from "@/lib/payslip-pdf";
@@ -9,6 +9,7 @@ import { PaymentBadge } from "@/components/StatusBadge";
 import { PageHeader } from "@/components/PageHeader";
 import { PullToRefresh } from "@/components/PullToRefresh";
 import { useSimulatedLoad } from "@/hooks/useSimulatedLoad";
+import { useHiddenBalance } from "@/hooks/useHiddenBalance";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -62,6 +63,7 @@ function inRange(date: string, range: DateRange) {
 
 function Payments() {
   const loading = useSimulatedLoad();
+  const { hidden, toggle: toggleHidden } = useHiddenBalance();
   const [period, setPeriod] = useState<Period>("all");
   const [range, setRange] = useState<DateRange | undefined>();
   const [rangeOpen, setRangeOpen] = useState(false);
@@ -105,12 +107,23 @@ function Payments() {
           {loading ? (
             <Skeleton className="h-28 w-full rounded-2xl" />
           ) : (
-            <div className="rounded-2xl bg-primary p-5 shadow-card">
+            <div className="relative rounded-2xl bg-primary p-5 shadow-card">
+              <button
+                onClick={toggleHidden}
+                aria-label={hidden ? "Afficher le solde" : "Masquer le solde"}
+                className="press-sm absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full bg-white/15 text-primary-foreground"
+              >
+                {hidden ? (
+                  <EyeOff className="h-4 w-4" strokeWidth={1.75} />
+                ) : (
+                  <Eye className="h-4 w-4" strokeWidth={1.75} />
+                )}
+              </button>
               <p className="text-sm font-medium text-primary-foreground/75">
                 Total perçu ({periodLabel})
               </p>
               <p className="mt-1 text-[32px] font-extrabold leading-tight tracking-tight text-primary-foreground">
-                {formatFCFA(total)}
+                {hidden ? "•••••• FCFA" : formatFCFA(total)}
               </p>
               <p className="mt-1 text-sm font-medium text-primary-foreground/90">
                 {list.length} fiche{list.length > 1 ? "s" : ""} de paie

@@ -14,7 +14,7 @@ const highlights = [
 
 function Welcome() {
   return (
-    <div className="screen-enter flex min-h-screen flex-col px-6 pb-8 pt-[calc(env(safe-area-inset-top)+2rem)]">
+    <div className="screen-enter flex min-h-dvh flex-col px-6 pb-8 pt-[calc(env(safe-area-inset-top)+2rem)]">
       <div className="flex flex-1 flex-col justify-center">
         <Logo size="lg" />
 
@@ -38,7 +38,7 @@ function Welcome() {
               style={{ animationDelay: `${i * 70}ms` }}
               className="press feed-card stagger flex items-center gap-3 rounded-2xl px-4 py-3.5"
             >
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary">
+              <span className="grid h-10 w-10 shrink-0 animate-pulse place-items-center rounded-xl bg-primary-soft text-primary">
                 <Icon className="h-5 w-5" strokeWidth={1.75} />
               </span>
               <span className="text-sm font-medium text-foreground">{text}</span>
@@ -47,7 +47,7 @@ function Welcome() {
         </div>
       </div>
 
-      <div className="space-y-3">
+      <div className="mt-8 space-y-3">
         <Link
           to="/register"
           className="press flex h-13 w-full items-center justify-center rounded-full bg-primary py-4 text-[15px] font-bold text-primary-foreground shadow-card"

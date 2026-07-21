@@ -1,16 +1,21 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
-import { Phone, Lock, Eye, EyeOff } from "lucide-react";
+import { ChevronLeft, Phone, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { Logo } from "@/components/Logo";
 import { SocialAuthButtons } from "@/components/SocialAuthButtons";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/login")({
   component: Login,
 });
 
+type LoginMethod = "phone" | "email";
+
 function Login() {
   const navigate = useNavigate();
+  const router = useRouter();
+  const [method, setMethod] = useState<LoginMethod>("phone");
   const [showPwd, setShowPwd] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -23,13 +28,21 @@ function Login() {
     }, 700);
   };
 
-  const socialLogin = (provider: "Google" | "Facebook") => {
+  const socialLogin = (provider: "Google") => {
     toast.success(`Connecté avec ${provider}`);
     navigate({ to: "/home" });
   };
 
   return (
-    <div className="screen-enter flex min-h-screen flex-col px-6 pb-8 pt-[calc(env(safe-area-inset-top)+3rem)]">
+    <div className="screen-enter flex min-h-dvh flex-col px-6 pb-8 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
+      <button
+        onClick={() => router.history.back()}
+        aria-label="Retour"
+        className="press-sm -ml-1.5 grid h-9 w-9 place-items-center rounded-full text-foreground hover:bg-muted"
+      >
+        <ChevronLeft className="h-5 w-5" strokeWidth={1.75} />
+      </button>
+
       <div className="flex flex-1 flex-col justify-center">
         <div className="flex justify-center">
           <Logo size="lg" />
@@ -41,19 +54,57 @@ function Login() {
           Connectez-vous pour accéder à vos missions
         </p>
 
-        <form onSubmit={onSubmit} className="mt-8 space-y-4">
-          <Field
-            icon={<Phone className="h-5 w-5" strokeWidth={1.75} />}
-            label="Numéro de téléphone"
-          >
-            <input
-              required
-              type="tel"
-              inputMode="tel"
-              placeholder="07 00 00 00 00"
-              className="w-full bg-transparent text-[15px] text-foreground outline-none placeholder:text-muted-foreground"
-            />
-          </Field>
+        <div className="mt-6 flex gap-2 rounded-full bg-secondary p-1">
+          {(
+            [
+              { key: "phone", label: "Téléphone" },
+              { key: "email", label: "E-mail" },
+            ] as const
+          ).map((m) => (
+            <button
+              key={m.key}
+              type="button"
+              onClick={() => setMethod(m.key)}
+              className={cn(
+                "press-sm flex-1 rounded-full py-2 text-sm font-semibold transition-colors",
+                method === m.key
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground",
+              )}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
+
+        <form onSubmit={onSubmit} className="mt-6 space-y-4">
+          {method === "phone" ? (
+            <Field
+              icon={<Phone className="h-5 w-5" strokeWidth={1.75} />}
+              label="Numéro de téléphone"
+            >
+              <input
+                required
+                type="tel"
+                inputMode="tel"
+                placeholder="07 00 00 00 00"
+                className="w-full bg-transparent text-[15px] text-foreground outline-none placeholder:text-muted-foreground"
+              />
+            </Field>
+          ) : (
+            <Field
+              icon={<Mail className="h-5 w-5" strokeWidth={1.75} />}
+              label="Adresse e-mail"
+            >
+              <input
+                required
+                type="email"
+                inputMode="email"
+                placeholder="nom@exemple.com"
+                className="w-full bg-transparent text-[15px] text-foreground outline-none placeholder:text-muted-foreground"
+              />
+            </Field>
+          )}
 
           <Field
             icon={<Lock className="h-5 w-5" strokeWidth={1.75} />}
@@ -101,10 +152,7 @@ function Login() {
         </form>
 
         <div className="mt-6">
-          <SocialAuthButtons
-            onGoogle={() => socialLogin("Google")}
-            onFacebook={() => socialLogin("Facebook")}
-          />
+          <SocialAuthButtons onGoogle={() => socialLogin("Google")} />
         </div>
       </div>
 

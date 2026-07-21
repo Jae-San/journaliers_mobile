@@ -7,7 +7,7 @@ export const Route = createFileRoute("/_tabs")({
 
 function TabsLayout() {
   return (
-    <div className="min-h-screen pb-[calc(env(safe-area-inset-bottom)+4.5rem)]">
+    <div className="min-h-dvh pb-[calc(env(safe-area-inset-bottom)+4.5rem)]">
       <Outlet />
       <BottomNav />
     </div>

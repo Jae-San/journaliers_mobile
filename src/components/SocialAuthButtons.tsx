@@ -21,24 +21,7 @@ function GoogleIcon() {
   );
 }
 
-function FacebookIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
-      <path
-        fill="#ffffff"
-        d="M13.5 21v-7.6h2.6l.4-3H13.5V8.4c0-.9.2-1.5 1.5-1.5h1.6V4.3C16.3 4.3 15.3 4.2 14.2 4.2c-2.3 0-3.9 1.4-3.9 4v2.2H7.7v3h2.6V21h3.2z"
-      />
-    </svg>
-  );
-}
-
-export function SocialAuthButtons({
-  onGoogle,
-  onFacebook,
-}: {
-  onGoogle: () => void;
-  onFacebook: () => void;
-}) {
+export function SocialAuthButtons({ onGoogle }: { onGoogle: () => void }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-3">
@@ -49,24 +32,14 @@ export function SocialAuthButtons({
         <span className="h-px flex-1 bg-border" />
       </div>
 
-      <div className="flex gap-3">
-        <button
-          type="button"
-          onClick={onGoogle}
-          className="press flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-input bg-card text-[14px] font-semibold text-foreground"
-        >
-          <GoogleIcon />
-          Google
-        </button>
-        <button
-          type="button"
-          onClick={onFacebook}
-          className="press flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#1877F2] text-[14px] font-semibold text-white"
-        >
-          <FacebookIcon />
-          Facebook
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={onGoogle}
+        className="press flex h-12 w-full items-center justify-center gap-2 rounded-full border border-input bg-card text-[14px] font-semibold text-foreground"
+      >
+        <GoogleIcon />
+        Google
+      </button>
     </div>
   );
 }

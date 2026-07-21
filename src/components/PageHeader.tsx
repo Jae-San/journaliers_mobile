@@ -20,7 +20,7 @@ export function PageHeader({
   return (
     <header
       className={cn(
-        "sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-card/95 px-4 pb-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] backdrop-blur-sm",
+        "sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-card px-4 pb-3 pt-[calc(env(safe-area-inset-top)+0.75rem)]",
         className,
       )}
     >

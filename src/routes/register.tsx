@@ -29,6 +29,7 @@ interface FormData {
   firstName: string;
   phone: string;
   password: string;
+  confirmPassword: string;
   birthDate: string;
   address: string;
   city: string;
@@ -43,6 +44,7 @@ function Register() {
     firstName: "",
     phone: "",
     password: "",
+    confirmPassword: "",
     birthDate: "",
     address: "",
     city: "",
@@ -54,7 +56,12 @@ function Register() {
 
   const canNext =
     step === 0
-      ? data.lastName && data.firstName && data.phone && data.password
+      ? data.lastName &&
+        data.firstName &&
+        data.phone &&
+        data.password &&
+        data.confirmPassword &&
+        data.password === data.confirmPassword
       : step === 1
         ? data.birthDate && data.address && data.city
         : step === 2
@@ -70,18 +77,20 @@ function Register() {
     else navigate({ to: "/" });
   };
 
-  const socialSignup = (provider: "Google" | "Facebook") => {
-    const demo =
-      provider === "Google"
-        ? { firstName: "Aïcha", lastName: "Koné", phone: "07 01 02 03 04" }
-        : { firstName: "Yves", lastName: "Kouamé", phone: "05 06 07 08 09" };
-    setData((d) => ({ ...d, ...demo, password: "social-oauth" }));
+  const socialSignup = (provider: "Google") => {
+    const demo = { firstName: "Aïcha", lastName: "Koné", phone: "07 01 02 03 04" };
+    setData((d) => ({
+      ...d,
+      ...demo,
+      password: "social-oauth",
+      confirmPassword: "social-oauth",
+    }));
     toast.success(`Compte ${provider} connecté`);
     setStep(1);
   };
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <header className="flex items-center gap-3 px-4 pb-2 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
         <button
           onClick={back}
@@ -217,6 +226,7 @@ function Select({
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          style={{ colorScheme: "light" }}
           className={cn(
             "w-full appearance-none bg-transparent text-[15px] outline-none",
             value ? "text-foreground" : "text-muted-foreground",
@@ -226,7 +236,7 @@ function Select({
             {placeholder}
           </option>
           {options.map((o) => (
-            <option key={o} value={o} className="text-foreground">
+            <option key={o} value={o}>
               {o}
             </option>
           ))}
@@ -244,8 +254,11 @@ function StepIdentity({
 }: {
   data: FormData;
   set: (k: keyof FormData, v: string) => void;
-  onSocialSignup: (provider: "Google" | "Facebook") => void;
+  onSocialSignup: (provider: "Google") => void;
 }) {
+  const confirmMismatch =
+    data.confirmPassword.length > 0 && data.password !== data.confirmPassword;
+
   return (
     <div className="space-y-4">
       <SectionTitle title="Vos informations" sub="Renseignez votre identité" />
@@ -277,12 +290,23 @@ function StepIdentity({
         onChange={(v) => set("password", v)}
         placeholder="••••••••"
       />
+      <div>
+        <Input
+          label="Confirmer le mot de passe"
+          type="password"
+          value={data.confirmPassword}
+          onChange={(v) => set("confirmPassword", v)}
+          placeholder="••••••••"
+        />
+        {confirmMismatch && (
+          <p className="mt-1.5 text-xs text-danger">
+            Les mots de passe ne correspondent pas
+          </p>
+        )}
+      </div>
 
       <div className="pt-2">
-        <SocialAuthButtons
-          onGoogle={() => onSocialSignup("Google")}
-          onFacebook={() => onSocialSignup("Facebook")}
-        />
+        <SocialAuthButtons onGoogle={() => onSocialSignup("Google")} />
       </div>
     </div>
   );
